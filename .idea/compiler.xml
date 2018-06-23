@@ -14,6 +14,8 @@
     <bytecodeTargetLevel>
       <module name="config-client_main" target="1.8" />
       <module name="config-client_test" target="1.8" />
+      <module name="config-repository_main" target="1.8" />
+      <module name="config-repository_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -2,19 +2,16 @@ package demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * Created by: patrick.jiang@activenetwork.com
- * Created on:  11:08 2018/6/22.
+ * Created on:  13:45 2018/6/23.
  */
-
 @SpringBootApplication
-@EnableConfigServer
 @EnableEurekaClient
-public class ConfigApplication {
+public class EurekaConfigClientApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ConfigApplication.class, args);
+        SpringApplication.run(EurekaConfigClientApplication.class, args);
     }
 }

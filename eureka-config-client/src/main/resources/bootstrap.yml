@@ -1,0 +1,24 @@
+pk:
+  appconfig:
+    conf1-alias: pk-es
+    conf2-alias: pk-en
+    conf1-port: 8084
+    conf2-port: 8085
+    peer1-address: peer1:8761
+    peer2-address: peer2:8762
+
+spring:
+  cloud:
+    config:
+      name: application
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        serviceId: PK-ES
+      fail-fast: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${pk.appconfig.peer1-address}/eureka/

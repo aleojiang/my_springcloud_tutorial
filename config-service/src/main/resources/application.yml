@@ -4,28 +4,33 @@ eureka:
 
 pk:
   appconfig:
-    spanish-alias: pk-es
-    english-alias: pk-en
-    spanish-port: 8084
-    english-port: 8085
+    conf1-alias: pk-es
+    conf2-alias: pk-en
+    conf1-port: 8084
+    conf2-port: 8085
     peer1-address: peer1:8761
     peer2-address: peer2:8762
 
----
 spring:
-  profiles: spanish
-  application:
-    name: ${pk.appconfig.spanish-alias}
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/aleojiang/spring-cloud-starter/     # 配置git仓库的地址
-          search-paths: config-repo                             # git仓库地址下的相对地址，可以配置多个，用,分割。
-          username: yourname                                        # git仓库的账号
-          password: yourpass                                    # git仓库的密码
+          # config github address
+          uri: https://github.com/aleojiang/my_springcloud_tutorial/
+          # configuration file path, multiple paths would be separated by comma ","
+          search-paths: config-repository
+          # github account
+          username: aleojiang
+          password: 1q1q1q1q
+
+---
+spring:
+  profiles: conf1
+  application:
+    name: ${pk.appconfig.conf1-alias}
 server:
-  port: ${pk.appconfig.spanish-port}
+  port: ${pk.appconfig.conf1-port}
 # to make it more interesting, let's have each client registering at a different instance
 eureka:
   client:
@@ -34,11 +39,11 @@ eureka:
 
 ---
 spring:
-  profiles: english
+  profiles: conf2
   application:
-    name: ${pk.appconfig.english-alias}
+    name: ${pk.appconfig.conf2-alias}
 server:
-  port: ${pk.appconfig.english-port}
+  port: ${pk.appconfig.conf2-port}
 eureka:
   client:
     service-url:

@@ -1,0 +1,20 @@
+pk:
+  appconfig:
+    client1-alias: pk-client-es
+    client2-alias: pk-client-en
+    client1-port: 8184
+    client2-port: 8185
+
+spring:
+  profiles: client1
+  application:
+    name: ${pk.appconfig.client1-alias}
+server:
+  port: ${pk.appconfig.client1-port}
+
+spring:
+  profiles: client2
+  application:
+    name: ${pk.appconfig.client2-alias}
+server:
+  port: ${pk.appconfig.client2-port}

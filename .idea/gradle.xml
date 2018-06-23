@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/config-service" />
+            <option value="$PROJECT_DIR$/eureka-config-client" />
             <option value="$PROJECT_DIR$/eureka-service" />
           </set>
         </option>

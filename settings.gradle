@@ -1,3 +1,4 @@
 include 'config-service'
 include 'eureka-service'
+include 'eureka-config-client'
 
