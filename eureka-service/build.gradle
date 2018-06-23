@@ -1,0 +1,25 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+}
+
+task bootRunPeer1(type: BootRun, dependsOn: 'build') {
+    group = 'Application'
+
+    doFirst() {
+        main = bootJar.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+        systemProperty 'spring.profiles.active', 'peer1'
+    }
+}
+
+task bootRunPeer2(type: BootRun, dependsOn: 'build') {
+    group = 'Application'
+
+    doFirst() {
+        main = bootJar.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+        systemProperty 'spring.profiles.active', 'peer2'
+    }
+}
