@@ -6,20 +6,20 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
 }
 
-task bootRunConf1(type: BootRun, dependsOn: build) {
+task bootRunCfg1(type: BootRun, dependsOn: build) {
     group = "Application"
 
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
-        systemProperty 'spring.profiles.active', 'conf1'
+        systemProperty 'spring.profiles.active', 'cfg1'
     }
 }
 
-task bootRunConf2(type:BootRun, dependsOn: build) {
+task bootRunCfg2(type:BootRun, dependsOn: build) {
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
-        systemProperty 'spring.profiles.active', 'conf2'
+        systemProperty 'spring.profiles.active', 'cfg2'
     }
 }

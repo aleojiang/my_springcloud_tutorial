@@ -1,3 +1,21 @@
+pk:
+  appconfig:
+    eureka-appname: eureka-peer-aware-cluster
+    peer1-alias: peer1
+    peer2-alias: peer2
+    peer1-port: 9000
+    peer2-port: 9001
+    cfg-appname: cfg-cluster
+    cfg1-alias: cfg1
+    cfg2-alias: cfg2
+    cfg1-port: 9100
+    cfg1-port: 9101
+    api-appname: api-cluster
+    api1-alias: api1
+    api2-alias: api2
+    api1-port: 9200
+    api2-port: 9201
+
 management:
   endpoint:
     health:
@@ -18,29 +36,32 @@ spring:
 eureka:
   instance:
     # modify /etc/hosts
-    hostname: peer1
+    hostname: ${pk.appconfig.peer1-alias}
     # Either this one or the spring boot name must be the same
     # (it works without setting it too, using the alias UNKNOWN)
-    appname: my-eureka-cluster
+    appname: ${pk.appconfig.eureka-appname}
   client:
     serviceUrl:
-      defaultZone: http://peer2:8762/eureka
+      defaultZone: http://${pk.appconfig.peer2-alais}:${pk.appconfig.peer2-port}/eureka
     register-with-eureka: true
     fetch-registry: true
 server:
-  port: 8761
+  port: ${pk.appconfig.peer1-port}
 
 ---
 spring:
   profiles: peer2
 eureka:
   instance:
-    hostname: peer2
-    appname: my-eureka-cluster
+    # modify /etc/hosts
+    hostname: ${pk.appconfig.peer2-alias}
+    # Either this one or the spring boot name must be the same
+    # (it works without setting it too, using the alias UNKNOWN)
+    appname: ${pk.appconfig.eureka-appname}
   client:
     serviceUrl:
-      defaultZone: http://peer1:8761/eureka
+      defaultZone: http://${pk.appconfig.peer1-alais}:${pk.appconfig.peer1-port}/eureka
     register-with-eureka: true
     fetch-registry: true
 server:
-  port: 8762
+  port: ${pk.appconfig.peer2-port}
