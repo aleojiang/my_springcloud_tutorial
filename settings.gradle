@@ -1,4 +1,7 @@
 include 'config-service'
 include 'eureka-service'
 include 'eureka-config-client'
+include 'service-hello'
+include 'eureka-server-cluster'
+include 'feign-client'
 

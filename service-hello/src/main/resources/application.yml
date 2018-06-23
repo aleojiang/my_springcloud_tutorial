@@ -1,0 +1,51 @@
+appconfig:
+  server1: peer1
+  server1-port: 9001
+  server1-addr: peer1:9001
+  server2: peer2
+  server2-port: 9002
+  server2-addr: peer2:9002
+  server3: peer3
+  server3-port: 9003
+  server3-addr: peer3:9003
+  hello-service1: hello-service1
+  hello-service1-port: 9201
+  hello-service2: hello-service2
+  hello-service2-port: 9202
+  hello-service3: hello-service3
+  hello-service3-port: 9203
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka,http://${appconfig.server2-addr}/eureka,http://${appconfig.server3-addr}/eureka
+spring:
+  application:
+    name: hello-service-cluster
+
+---
+spring:
+  profiles: hello-service-1
+server:
+  port: ${appconfig.hello-service1-port}
+eureka:
+  instance:
+    hostname: ${appconfig.server1} 
+
+---
+spring:
+  profiles: hello-service-2
+server:
+  port: ${appconfig.hello-service2-port}
+eureka:
+  instance:
+    hostname: ${appconfig.server2} 
+
+---
+spring:
+  profiles: hello-service-3
+server:
+  port: ${appconfig.hello-service3-port}
+eureka:
+  instance:
+    hostname: ${appconfig.server3} 

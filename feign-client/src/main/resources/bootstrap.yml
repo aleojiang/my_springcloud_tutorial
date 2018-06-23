@@ -1,0 +1,19 @@
+appconfig:
+  server1-addr: peer1:9001
+  server2-addr: peer2:9002
+  server3-addr: peer3:9003
+
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      profile: default
+      label: master
+      name: application
+      discovery:
+        enabled: true
+        serviceId: cfg-cluster
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka/,http://${appconfig.server2-addr}/eureka/,http://${appconfig.server3-addr}/eureka/

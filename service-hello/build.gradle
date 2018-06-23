@@ -2,33 +2,34 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 
 dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-config")
-    compile("org.springframework.cloud:spring-cloud-config-server")
     compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    compile "org.springframework.cloud:spring-cloud-starter-openfeign"
 }
 
-task bootRunCfg1(type: BootRun, dependsOn: build) {
+
+task bootRunS1(type: BootRun, dependsOn: build) {
     group = "application"
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
-        systemProperty 'spring.profiles.active', 'cfg1'
+        systemProperty 'spring.profiles.active', 'hello-service-1'
     }
 }
 
-task bootRunCfg2(type:BootRun, dependsOn: build) {
+task bootRunS2(type:BootRun, dependsOn: build) {
     group = "application"
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
-        systemProperty 'spring.profiles.active', 'cfg2'
+        systemProperty 'spring.profiles.active', 'hello-service-2'
     }
 }
 
-task bootRunCfg3(type:BootRun, dependsOn: build) {
+task bootRunS3(type:BootRun, dependsOn: build) {
     group = "application"
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath
-        systemProperty 'spring.profiles.active', 'cfg3'
+        systemProperty 'spring.profiles.active', 'hello-service-3'
     }
 }

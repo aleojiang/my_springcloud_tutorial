@@ -1,0 +1,73 @@
+appconfig:
+  server1: peer1
+  server1-port: 9001
+  server1-addr: peer1:9001
+  server2: peer2
+  server2-port: 9002
+  server2-addr: peer2:9002
+  server3: peer3
+  server3-port: 9003
+  server3-addr: peer3:9003
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+      # By default, only 'health' and 'info' are accessible via web
+      exposure:
+        include: '*'
+
+eureka:
+  instance:
+    appname: eureka-cluster
+
+
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: ${appconfig.server1}
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server3-addr}/eureka/,http://${appconfig.server2-addr}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: ${appconfig.server1-port}
+
+
+---
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: ${appconfig.server2}
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka/,http://${appconfig.server3-addr}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: ${appconfig.server2-port}
+
+
+---
+spring:
+  profiles: peer3
+eureka:
+  instance:
+    hostname: ${appconfig.server3}
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka/,http://${appconfig.server2-addr}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: ${appconfig.server3-port}

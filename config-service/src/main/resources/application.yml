@@ -1,31 +1,31 @@
-pk:
-  appconfig:
-    eureka-appname: eureka-peer-aware-cluster
-    peer1-alias: peer1
-    peer2-alias: peer2
-    peer1-port: 9000
-    peer2-port: 9001
-    cfg-appname: cfg-cluster
-    cfg1-alias: cfg1
-    cfg2-alias: cfg2
-    cfg1-port: 9100
-    cfg2-port: 9101
-    api-appname: api-cluster
-    api1-alias: api1
-    api2-alias: api2
-    api1-port: 9200
-    api2-port: 9201
+appconfig:
+  server1: peer1
+  server1-port: 9001
+  server1-addr: peer1:9001
+  server2: peer2
+  server2-port: 9002
+  server2-addr: peer2:9002
+  server3: peer3
+  server3-port: 9003
+  server3-addr: peer3:9003
+  cfg1: cfg1
+  cfg1-port: 9101
+  cfg2: cfg2
+  cfg2-port: 9102
+  cfg3: cfg3
+  cfg3-port: 9103
+
 
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
-    # modify /etc/hosts
-    hostname: ${pk.appconfig.peer1-alias}
-    # Either this one or the spring boot name must be the same
-    # (it works without setting it too, using the alias UNKNOWN)
-    appname: ${pk.appconfig.cfg-appname}
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka/,http://${appconfig.server2-addr}/eureka/,http://${appconfig.server3-addr}/eureka/
 
 spring:
+  application:
+    name: cfg-cluster
   cloud:
     config:
       server:
@@ -41,25 +41,26 @@ spring:
 ---
 spring:
   profiles: cfg1
-  application:
-    name: ${pk.appconfig.cfg1-alias}
-
-server:
-  port: ${pk.appconfig.cfg1-port}
-# to make it more interesting, let's have each client registering at a different instance
 eureka:
-  client:
-    service-url:
-      defaultZone: http://${pk.appconfig.peer1-alias}:${pk.appconfig.peer1-port}/eureka
+  instance:
+    hostname: ${appconfig.server1}
+server:
+  port: ${appconfig.cfg1-port}
 
 ---
 spring:
   profiles: cfg2
-  application:
-    name: ${pk.appconfig.cfg-appname}
-server:
-  port: ${pk.appconfig.cfg2-port}
 eureka:
-  client:
-    service-url:
-      defaultZone: http://${pk.appconfig.peer2-alias}:${pk.appconfig.peer2-port}/eureka
+  instance:
+    hostname: ${appconfig.server2}
+server:
+  port: ${appconfig.cfg2-port}
+
+---
+spring:
+  profiles: cfg3
+eureka:
+  instance:
+    hostname: ${appconfig.server3}
+server:
+  port: ${appconfig.cfg3-port}

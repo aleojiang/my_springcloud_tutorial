@@ -1,0 +1,37 @@
+appconfig:
+  server1: peer1
+  server1-port: 9001
+  server1-addr: peer1:9001
+  server2: peer2
+  server2-port: 9002
+  server2-addr: peer2:9002
+  server3: peer3
+  server3-port: 9003
+  server3-addr: peer3:9003
+  feign-client1: feign-client1
+  feign-client1-port: 9301
+  feign-client2: feign-client2
+  feign-client2-port: 9302
+  feign-client3: feign-client3
+  feign-client3-port: 9303
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${appconfig.server1-addr}/eureka,http://${appconfig.server2-addr}/eureka,http://${appconfig.server3-addr}/eureka
+spring:
+  application:
+    name: feign-client-cluster
+
+server:
+  port: ${appconfig.feign-client1-port}
+eureka:
+  instance:
+    hostname: ${appconfig.server1}
+
+
+hello-service-cluster:
+  ribbon:
+#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    listOfServers: peer1:9201,peer2:9202,peer3:9203
