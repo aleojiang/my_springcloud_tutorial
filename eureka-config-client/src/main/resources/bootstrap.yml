@@ -1,11 +1,20 @@
 pk:
   appconfig:
-    conf1-alias: pk-es
-    conf2-alias: pk-en
-    conf1-port: 8084
-    conf2-port: 8085
-    peer1-address: peer1:8761
-    peer2-address: peer2:8762
+    eureka-appname: eureka-peer-aware-cluster
+    peer1-alias: peer1
+    peer2-alias: peer2
+    peer1-port: 9000
+    peer2-port: 9001
+    cfg-appname: cfg-cluster
+    cfg1-alias: cfg1
+    cfg2-alias: cfg2
+    cfg1-port: 9100
+    cfg2-port: 9101
+    api-appname: api-cluster
+    api1-alias: api1
+    api2-alias: api2
+    api1-port: 9200
+    api2-port: 9201
 
 spring:
   cloud:
@@ -15,26 +24,23 @@ spring:
       label: master
       discovery:
         enabled: true
-        serviceId: PK-ES
+        serviceId: ${pk.appconfig.cfg-appname}
       fail-fast: true
-
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://${pk.appconfig.peer1-address}/eureka/
+    service-url:
+      defaultZone: http://${pk.appconfig.peer1-alias}:${pk.appconfig.peer1-port}/eureka
 
 ---
 spring:
-  profiles: client1
-spring:
+  profiles: api1
   cloud:
     config:
       profile: dev
 
 ---
 spring:
-  profiles: client2
-spring:
+  profiles: api2
   cloud:
     config:
       profile: reg

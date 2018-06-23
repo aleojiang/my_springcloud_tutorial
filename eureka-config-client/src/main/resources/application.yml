@@ -9,7 +9,7 @@ pk:
     cfg1-alias: cfg1
     cfg2-alias: cfg2
     cfg1-port: 9100
-    cfg1-port: 9101
+    cfg2-port: 9101
     api-appname: api-cluster
     api1-alias: api1
     api2-alias: api2
@@ -18,31 +18,54 @@ pk:
 
 eureka:
   instance:
-    lease-renewal-interval-in-seconds: 10
+    lease-renewal-interval-in-seconds: 30
+    # modify /etc/hosts
+    hostname: ${pk.appconfig.peer1-alias}
+    # Either this one or the spring boot name must be the same
+    # (it works without setting it too, using the alias UNKNOWN)
+    appname: ${pk.appconfig.api-appname}
+
+spring:
+  cloud:
+    config:
+      name: application
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        serviceId: ${pk.appconfig.cfg-appname}
+      fail-fast: true
+
 
 ---
 spring:
   profiles: api1
+  cloud:
+    config:
+      profile: dev
   application:
-    name: ${pk.appconfig.api-appname}
+    name: ${pk.appconfig.api1-alias}
 server:
   port: ${pk.appconfig.api1-port}
 # to make it more interesting, let's have each client registering at a different instance
 eureka:
   client:
     service-url:
-      defaultZone: http://${${pk.appconfig.peer1-alias}}:${${pk.appconfig.peer1-port}}/eureka
+      defaultZone: http://${pk.appconfig.peer1-alias}:${pk.appconfig.peer1-port}/eureka
 
 ---
 spring:
-  profiles: client2
+  profiles: api2
+  cloud:
+    config:
+      profile: reg
   application:
-    name: ${pk.appconfig.api-appname}
+    name: ${pk.appconfig.api2-alias}
 server:
   port: ${pk.appconfig.api2-port}
 # to make it more interesting, let's have each client registering at a different instance
 eureka:
   client:
     service-url:
-      defaultZone: http://${${pk.appconfig.peer2-alias}}:${${pk.appconfig.peer2-port}}/eureka
+      defaultZone: http://${pk.appconfig.peer2-alias}:${pk.appconfig.peer2-port}/eureka
 

@@ -9,7 +9,7 @@ pk:
     cfg1-alias: cfg1
     cfg2-alias: cfg2
     cfg1-port: 9100
-    cfg1-port: 9101
+    cfg2-port: 9101
     api-appname: api-cluster
     api1-alias: api1
     api2-alias: api2
@@ -42,7 +42,7 @@ eureka:
     appname: ${pk.appconfig.eureka-appname}
   client:
     serviceUrl:
-      defaultZone: http://${pk.appconfig.peer2-alais}:${pk.appconfig.peer2-port}/eureka
+      defaultZone: http://${pk.appconfig.peer2-alias}:${pk.appconfig.peer2-port}/eureka
     register-with-eureka: true
     fetch-registry: true
 server:
@@ -60,7 +60,7 @@ eureka:
     appname: ${pk.appconfig.eureka-appname}
   client:
     serviceUrl:
-      defaultZone: http://${pk.appconfig.peer1-alais}:${pk.appconfig.peer1-port}/eureka
+      defaultZone: http://${pk.appconfig.peer1-alias}:${pk.appconfig.peer1-port}/eureka
     register-with-eureka: true
     fetch-registry: true
 server:

@@ -17,6 +17,8 @@ task bootRunCfg1(type: BootRun, dependsOn: build) {
 }
 
 task bootRunCfg2(type:BootRun, dependsOn: build) {
+    group = "Application"
+
     doFirst() {
         main = bootJar.mainClassName
         classpath = sourceSets.main.runtimeClasspath

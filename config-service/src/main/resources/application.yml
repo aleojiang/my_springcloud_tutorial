@@ -9,7 +9,7 @@ pk:
     cfg1-alias: cfg1
     cfg2-alias: cfg2
     cfg1-port: 9100
-    cfg1-port: 9101
+    cfg2-port: 9101
     api-appname: api-cluster
     api1-alias: api1
     api2-alias: api2
@@ -19,6 +19,11 @@ pk:
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
+    # modify /etc/hosts
+    hostname: ${pk.appconfig.peer1-alias}
+    # Either this one or the spring boot name must be the same
+    # (it works without setting it too, using the alias UNKNOWN)
+    appname: ${pk.appconfig.cfg-appname}
 
 spring:
   cloud:
@@ -37,7 +42,8 @@ spring:
 spring:
   profiles: cfg1
   application:
-    name: ${pk.appconfig.cfg-appname}
+    name: ${pk.appconfig.cfg1-alias}
+
 server:
   port: ${pk.appconfig.cfg1-port}
 # to make it more interesting, let's have each client registering at a different instance
