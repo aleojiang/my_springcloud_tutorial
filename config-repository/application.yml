@@ -1,3 +1,8 @@
 domain:
   data:
     v1: default
+  test:
+    intValue: 9999
+    stringValue:  fuck you asshole
+    doubleValue: 0.9999999
+

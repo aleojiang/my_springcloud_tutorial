@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: single-config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/aleojiang/my_springcloud_tutorial/
+          search-paths: config-repository
+          username: aleojiang
+          password: 1q1q1q1q
+server:
+  port: 9860
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:9870/eureka/
+
+
