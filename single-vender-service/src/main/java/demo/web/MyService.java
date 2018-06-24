@@ -1,6 +1,8 @@
 package demo.web;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +20,9 @@ public class MyService {
     @Value("${domain.test.intValue}")
     private Integer vInteger;
     
-    @RequestMapping(value = "/get", method = RequestMethod.GET, consumes = { "application/json" })
-    public MyData get() {
-        return new MyData(vString, vDouble, vInteger);
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity<MyData> get() {
+        return new ResponseEntity<>(new MyData(vString, vDouble, vInteger), HttpStatus.OK);
     }
     
 }
