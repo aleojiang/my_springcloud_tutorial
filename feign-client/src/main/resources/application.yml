@@ -35,3 +35,7 @@ hello-service-cluster:
 #    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 #    listOfServers: peer1:9201,peer2:9202,peer3:9203
+
+feign:
+  hystrix:
+    enabled: true

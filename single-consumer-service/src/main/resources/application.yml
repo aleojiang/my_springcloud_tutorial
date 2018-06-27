@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: single-consumer-service
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: single-consumer-service
+  client:
+    service-url:
+      defaultZone: http://localhost:9870/eureka/
+
+server:
+  port: 9840
+
+# feign ribbon config
+single-vendor-service: # name of feign client, normally it would be instance_id of service vendor registered in eureka
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    listOfServers: peer1:9201,peer2:9202,peer3:9203
+
+# feign hystrix config
+## this must be enabled, otherwise the ribbon load balance will fail first
+feign:
+  hystrix:
+    enabled: true
+
+
+

@@ -15,8 +15,10 @@
             <option value="$PROJECT_DIR$/feign-client" />
             <option value="$PROJECT_DIR$/service-hello" />
             <option value="$PROJECT_DIR$/single-config-service" />
+            <option value="$PROJECT_DIR$/single-consumer-service" />
             <option value="$PROJECT_DIR$/single-eureka-service" />
             <option value="$PROJECT_DIR$/single-vender-service" />
+            <option value="$PROJECT_DIR$/specifications" />
           </set>
         </option>
       </GradleProjectSettings>

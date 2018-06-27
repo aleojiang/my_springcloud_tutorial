@@ -16,6 +16,8 @@
       <module name="config-client_test" target="1.8" />
       <module name="config-repository_main" target="1.8" />
       <module name="config-repository_test" target="1.8" />
+      <module name="servicerunners_main" target="1.8" />
+      <module name="servicerunners_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

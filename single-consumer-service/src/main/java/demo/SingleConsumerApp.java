@@ -1,24 +1,27 @@
 package demo;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Created by: patrick.jiang@activenetwork.com
- * Created on:  00:41 2018/6/24.
+ * Created on:  16:03 2018/6/24.
  */
 @SpringBootApplication
+@EnableHystrix
 @EnableEurekaClient
 @EnableFeignClients
-@EnableHystrix
-public class FeignClientApp {
+@EnableHystrixDashboard
+public class SingleConsumerApp {
     public static void main(String[] args) {
-        SpringApplication.run(FeignClientApp.class, args);
+        new SpringApplicationBuilder(SingleConsumerApp.class)
+                .web(WebApplicationType.SERVLET)
+                .run(args);
     }
     
 }

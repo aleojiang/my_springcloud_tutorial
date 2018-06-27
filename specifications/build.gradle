@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":single-eureka-service")
+    compile project(":single-config-service")
+    compile project(":single-vender-service")
+    compile project(":single-consumer-service")
+}
